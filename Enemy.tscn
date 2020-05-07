@@ -26,10 +26,6 @@ tracks/0/keys = {
 "values": [ 0.0, 22.7317 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 10.8562
-height = 14.2514
-
 [sub_resource type="ShaderMaterial" id=9]
 shader = ExtResource( 4 )
 shader_param/amount = 7.235
@@ -60,6 +56,10 @@ scale = 5.0
 scale_random = 1.0
 color_ramp = SubResource( 5 )
 
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 10.8562
+height = 14.2514
+
 [node name="enemy_ship" type="Sprite"]
 material = SubResource( 1 )
 texture = ExtResource( 1 )
@@ -72,20 +72,19 @@ speed = 65
 [node name="disolve_anim" type="AnimationPlayer" parent="."]
 anims/desintigrate = SubResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, -0.788639 )
-shape = SubResource( 3 )
-
 [node name="Particles2D" type="Particles2D" parent="."]
-visible = false
 material = SubResource( 9 )
 position = Vector2( -0.169983, -12.6072 )
 amount = 20
 local_coords = false
 process_material = SubResource( 6 )
+
+[node name="hitbox" type="Area2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Area2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( 0, -0.788639 )
+shape = SubResource( 3 )
+[connection signal="area_entered" from="hitbox" to="." method="_on_Area2D_area_entered"]

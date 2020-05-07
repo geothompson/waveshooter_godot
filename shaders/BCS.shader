@@ -44,8 +44,38 @@ float gold(vec2 uv,float infinity){
 	dist = min(dist, dfArc(vec2(0.52, 0.52), 0.0, 1.0, 0.38,uv));
 	dist = min(dist, dfArc(vec2(0.52, 0.52), 4.86, 1.5, 0.38,uv));
 	
-
+	dist = min(dist, dfline(vec2(0.26, 0.073), vec2(0.250,0.116), uv));
+	dist = min(dist, dfline(vec2(0.25, 0.116), vec2(0.228,0.116), uv));
+	dist = min(dist, dfline(vec2(0.228, 0.116), vec2(0.244,0.147), uv));
+	dist = min(dist, dfline(vec2(0.244, 0.147), vec2(0.237,0.19), uv));
+	dist = min(dist, dfline(vec2(0.237, 0.19), vec2(0.261,0.165), uv));
+	dist = min(dist, dfline(vec2(0.261, 0.165), vec2(0.284,0.191), uv));
+	dist = min(dist, dfline(vec2(0.284, 0.191), vec2(0.278,0.145), uv));
+	dist = min(dist, dfline(vec2(0.278, 0.145), vec2(0.298,0.115), uv));
+	dist = min(dist, dfline(vec2(0.298, 0.115), vec2(0.271,0.115), uv));
+	dist = min(dist, dfline(vec2(0.271, 0.115), vec2(0.26,0.073), uv));
+	return dist;
 	
+}
+	
+	
+ void fragment(){
+vec2 uv = vec2(UV.x/0.6,UV.y);
+float brightness = 0.004; float thickness = 0.002;
+float dist =0.0; float shade=0.0;
+float bright = brightness * min(1.0, 1.0-sin(max(1e-3, abs(sin(121.0*TIME)))*150.0));
+dist =gold(uv,1e6);
+shade = bright / max(1e6,dist - thickness);
+COLOR = vec4((vec3(0.80, 9.2,0.05)*shade),1.0);
+
+}
+//fun
+//float brightness = 0.004; float thickness = 0.002;
+//float dist =0.0; float shade=0.0;
+//float bright = brightness = min(1.0, 1.0-sin(max(1e-3, abs(sin(121.0-*TIME))*150));
+//dist =gold(uv,1e6);
+//shade = bright / max(1e6,dist - thickness);
+//COLOR = vec4(vec3(0.80, 9.2,0.05)*shade),1.0);
 
 //uniform float brightness = 0.8;
 //uniform float contrast = 1.5;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://shaders/Ominous_cirlce.shader" type="Shader" id=1]
 [ext_resource path="res://Bullet.gd" type="Script" id=2]
@@ -34,6 +34,9 @@ orbit_velocity_random = 0.0
 scale = 7.13
 color_ramp = SubResource( 4 )
 
+[sub_resource type="CircleShape2D" id=8]
+radius = 209.798
+
 [node name="Bullet" type="Sprite"]
 material = SubResource( 1 )
 scale = Vector2( 0.04, 0.04 )
@@ -63,5 +66,13 @@ speed_scale = 1.5
 visibility_rect = Rect2( -1000, -1000, 200, 2000 )
 local_coords = false
 process_material = SubResource( 7 )
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2( 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2( 1, 1 )
+shape = SubResource( 8 )
 [connection signal="timeout" from="bullet_delete_timer" to="." method="_on_Timer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_Area2D_area_shape_entered"]

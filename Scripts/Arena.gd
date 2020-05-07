@@ -1,9 +1,10 @@
 extends Node2D
 var played = false
+var shot = false
 
 func _ready():
 	Global.node_creation_parent = self
-#	$CanvasLayer/ColorRect/AnimationPlayer.play("contrast_switch")
+	
 func _exit_tree():
 	Global.node_creation_parent =null
 
@@ -20,7 +21,21 @@ func _process(_delta: float) -> void:
 		$ship.look_at(get_global_mouse_position())
 		$ship.rotation_degrees += 90
 		$enemy_ship.rotation_degrees += -90
+		if shot:
+			shot = false
 		
+			$Timer.start()
+			$screen_shake.current = true
+			print("start")
 		
 #	$ship.look_at(get_global_mouse_position())
 #	pass
+
+
+
+
+
+
+func _on_Timer_timeout() -> void:
+	$screen_shake.current =false
+	print("end")
