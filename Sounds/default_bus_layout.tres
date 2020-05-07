@@ -1,0 +1,14 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=2]
+
+[sub_resource type="AudioEffectPhaser" id=1]
+resource_name = "Phaser"
+
+[sub_resource type="AudioEffectCompressor" id=2]
+resource_name = "Compressor"
+
+[resource]
+bus/0/volume_db = -4.003
+bus/0/effect/0/effect = SubResource( 1 )
+bus/0/effect/0/enabled = true
+bus/0/effect/1/effect = SubResource( 2 )
+bus/0/effect/1/enabled = true

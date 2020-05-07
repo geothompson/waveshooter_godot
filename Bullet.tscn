@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://shaders/Ominous_cirlce.shader" type="Shader" id=1]
+[ext_resource path="res://Bullet.gd" type="Script" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/intensity = 0.326
+shader_param/layers = 5.042
+shader_param/speed = 1.544
+
+[sub_resource type="OpenSimplexNoise" id=2]
+
+[sub_resource type="NoiseTexture" id=3]
+noise = SubResource( 2 )
+
+[sub_resource type="GradientTexture" id=4]
+
+[sub_resource type="Curve" id=5]
+bake_resolution = 110
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.531646, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+width = 1457
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+trail_divisor = 21
+trail_size_modifier = SubResource( 6 )
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 7.13
+color_ramp = SubResource( 4 )
+
+[node name="Bullet" type="Sprite"]
+material = SubResource( 1 )
+scale = Vector2( 0.04, 0.04 )
+texture = SubResource( 3 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = 144
+
+[node name="bullet_delete_timer" type="Timer" parent="."]
+wait_time = 6.525
+one_shot = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
+position = Vector2( 5.15688, 17.9536 )
+scale = Vector2( 20.3355, 20.532 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+visible = false
+use_parent_material = true
+z_index = -1
+amount = 12
+lifetime = 2.0
+speed_scale = 1.5
+visibility_rect = Rect2( -1000, -1000, 200, 2000 )
+local_coords = false
+process_material = SubResource( 7 )
+[connection signal="timeout" from="bullet_delete_timer" to="." method="_on_Timer_timeout"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

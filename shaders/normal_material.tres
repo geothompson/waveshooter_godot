@@ -1,0 +1,6 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type spatial;
+uniform texture normal;
+NORMAL = tex(normal, uv).rgb*vec3(2.0,-2.0,1.0)-vec3(1.0,-1.0,0.0)"
