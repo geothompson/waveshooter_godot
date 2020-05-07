@@ -36,8 +36,6 @@ func _process(delta: float) -> void:
 #		shoot = false
 
 
-func _on_Timer_timeout() -> void:
-	can_shoot= true
 
 
 #func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
@@ -51,6 +49,12 @@ func _on_Timer_timeout() -> void:
 func _on_anim_timer_timeout() -> void:
 	
 	Global.instance_node(bullet, $gun_pos.global_position, Global.node_creation_parent)
+	Global.node_creation_parent.shot = true
+	
 	$AudioStreamPlayer2D.play()
 	$reload_speed.start()
 	can_shoot = false
+
+
+func _on_reload_speed_timeout() -> void:
+	can_shoot= true
